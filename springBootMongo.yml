@@ -1,12 +1,11 @@
-apiVersion: apps/v1
+apiVersion: v1
 kind: ReplicationController
 metadata:
-  name: springappdeployment
+  labels:
+    app: springapp
+  name: springapp-RC
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: springapp
   template:
     metadata:
       name: springapppod
@@ -33,7 +32,7 @@ spec:
         - name: MONGO_DB_PASSWORD
           value: devdb@123
 ---
-apiVersion: apps/v1
+apiVersion: v1
 kind: Service
 metadata:
   name: springappsvc
@@ -46,8 +45,10 @@ spec:
     targetPort: 8080
 ---
 apiVersion: v1
-kind: ReplicaSet
+kind: ReplicationController
 metadata:
+  labels:
+    app: mongo
   name: mongodbrs
 spec:
   selector:
