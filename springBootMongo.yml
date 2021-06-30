@@ -1,11 +1,12 @@
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  labels:
-    app: springapp
-  name: springapp-RC
+  name: springappdeployment
 spec:
-  replicas: 1
+  replicas: 2
+  selector:
+    matchLabels:
+      app: springapp
   template:
     metadata:
       name: springapppod
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: springappcontainer
-        image: venkattharun/spring-boot-mongo
+        image: venkattharun/spring-boot-mongo-new:1
         ports:
         - containerPort: 8080
         resources:
@@ -44,11 +45,9 @@ spec:
   - port: 80
     targetPort: 8080
 ---
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1
+kind: ReplicaSet
 metadata:
-  labels:
-    app: mongo
   name: mongodbrs
 spec:
   selector:
