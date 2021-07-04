@@ -4,7 +4,6 @@ RUN cd spring-boot-mongo-docker && mvn package
 
 FROM openjdk:8-alpine
 RUN apk update && apk add /bin/sh
-
 RUN mkdir -p /opt/app
 ENV PROJECT_HOME /opt/app
 COPY --from=mvn /spring-boot-mongo-docker/target/spring-boot-mongo-docker*.jar $PROJECT_HOME/boot-mongo-docker.jar
