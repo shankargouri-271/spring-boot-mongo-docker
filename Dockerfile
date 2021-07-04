@@ -1,6 +1,6 @@
 FROM maven:3-openjdk-8
 RUN git clone https://github.com/venkattharun4/spring-boot-mongo-docker.git
-RUN cd maven-web-application/ && mvn package
+RUN cd spring-boot-mongo-docker/ && mvn package
 
  
 
