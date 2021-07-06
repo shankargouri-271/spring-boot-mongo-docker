@@ -1,8 +1,13 @@
-FROM maven:3-jdk-8 as mvn
-RUN git clone https://github.com/venkattharun4/spring-boot-mongo-docker.git
-RUN cd spring-boot-mongo-docker && mvn clean package
-
 FROM openjdk:8-alpine
+
 RUN apk update && apk add /bin/sh
-COPY --from=mvn /spring-boot-mongo-docker/target/spring-boot-mongo-docker*.jar /spring-boot-mongo-docker.jar
-CMD ["java" ,"-jar","./spring-boot-mongo-docker.jar"]
+
+RUN mkdir -p /opt/app
+ENV PROJECT_HOME /opt/app
+
+COPY target/spring-boot-mongo-1.0.jar $PROJECT_HOME/spring-boot-mongo.jar
+
+WORKDIR $PROJECT_HOME
+
+CMD ["java" ,"-jar","./spring-boot-mongo.jar"]
+
