@@ -5,6 +5,6 @@ RUN cd spring-boot-mongo-docker && mvn clean package
 FROM openjdk:8-alpine
 RUN apk update && apk add /bin/sh
 RUN mkdir -p /opt/app
-ADD . /path/to/dir/in/image
+COPY . /path/to/dir/in/image
 COPY --from=mvn /spring-boot-mongo-docker/target/spring-boot-mongo-docker*.jar /boot-mongo-docker.jar
 CMD ["java" ,"-jar","./spring-boot-mongo.jar"]
